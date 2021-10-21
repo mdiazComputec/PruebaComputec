@@ -3,17 +3,12 @@ package com.Computec.Prueba.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.Computec.Prueba.model.Cliente;
 import com.Computec.Prueba.service.api.ClienteServiceAPI;
@@ -33,7 +28,7 @@ public class ClienteController {
 	@GetMapping("/save/{id}")
 	public String showSave(@PathVariable("id") Long id , Model model) {
 		if(id != null && id != 0) {
-			model.addAttribute("persona", clienteServiceAPI.get(id));
+			model.addAttribute("cliente", clienteServiceAPI.get(id));
 		}else {
 			model.addAttribute("cliente", new Cliente());
 		}

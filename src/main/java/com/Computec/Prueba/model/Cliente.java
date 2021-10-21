@@ -17,7 +17,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private Long id;
 	
 	private String llave;
 	private String nombre;
@@ -32,7 +32,7 @@ public class Cliente {
 
 	}
 
-	public Cliente(String id, String llave, String nombre, String apellido, String direccion, String ciudad,
+	public Cliente(Long id, String llave, String nombre, String apellido, String direccion, String ciudad,
 			String departamento) {
 		super();
 		this.id = id;
@@ -44,11 +44,11 @@ public class Cliente {
 		this.departamento = departamento;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
