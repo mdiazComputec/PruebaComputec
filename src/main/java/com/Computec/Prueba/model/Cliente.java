@@ -1,17 +1,23 @@
 package com.Computec.Prueba.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Table;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private String id;
 	
 	private String llave;
 	private String nombre;
@@ -26,7 +32,7 @@ public class Cliente {
 
 	}
 
-	public Cliente(Long id, String llave, String nombre, String apellido, String direccion, String ciudad,
+	public Cliente(String id, String llave, String nombre, String apellido, String direccion, String ciudad,
 			String departamento) {
 		super();
 		this.id = id;
@@ -38,11 +44,11 @@ public class Cliente {
 		this.departamento = departamento;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
