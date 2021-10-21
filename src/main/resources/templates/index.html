@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Clientes</title>
+
+<!-- Bootstrap CSS -->
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+
+</body>
+	<div class="container">
+		<br>
+		<div th:switch="${list}">
+			<div th:case="*">
+				<h2>Clientes</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>llave</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente : ${list}">
+							<td th:text="${cliente.llave}"></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</html>

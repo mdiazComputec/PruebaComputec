@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,38 +18,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Computec.Prueba.model.Cliente;
 import com.Computec.Prueba.service.api.ClienteServiceAPI;
 
-@RestController
-@RequestMapping(value = "/cliente/api/v1/")
-@CrossOrigin("*")
+@Controller
 public class ClienteController {
 	@Autowired
 	private ClienteServiceAPI clienteServiceAPI;
-
-	@GetMapping(value = "/all")
-	public List<Cliente> getAll() {
-		return clienteServiceAPI.getAll();
+	
+	@RequestMapping("/")
+	public String index(Model model) {
+		model.addAttribute("list", clienteServiceAPI.getAll());
+		return "index";
 	}
 	
-	@GetMapping(value = "/find/{id}")
-	public Cliente find(@PathVariable Long id) {
-		return clienteServiceAPI.get(id);
-	}
-
-	@PostMapping(value = "/save")
-	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
-		Cliente obj = clienteServiceAPI.save(cliente);
-		return new ResponseEntity<Cliente>(obj, HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/delete/{id}")
-	public ResponseEntity<Cliente> delete(@PathVariable Long id) {
-		Cliente cliente = clienteServiceAPI.get(id);
-		if (cliente != null) {
-			clienteServiceAPI.delete(id);
-		} else {
-			return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
+	
+	@GetMapping("/save/{id}")
+	public String showSave(@PathVariable("id") Long id , Model model) {
+		if(id != null && id != 0) {
+			model.addAttribute("persona", clienteServiceAPI.get(id));
+		}else {
+			model.addAttribute("cliente", new Cliente());
 		}
-		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+		return "save";
 	}
+	
+	@PostMapping("/save")
+	public String save(Cliente cliente, Model model) {
+		clienteServiceAPI.save(cliente);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable Long id, Model model) {
+		clienteServiceAPI.delete(id);
+		
+		return "redirect:/";
+	}
+	
 	
 }
